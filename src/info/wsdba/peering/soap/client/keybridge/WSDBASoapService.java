@@ -30,7 +30,7 @@ import javax.xml.ws.ResponseWrapper;
  * source version: 2.2
  * <p/>
  */
-@WebService(name = "WSDBASoapService", targetNamespace = "http://whitespace.keybridgeglobal.com/peering/wsdba")
+@WebService(name = "WSDBASoapService", targetNamespace = "http://www.keybridgeglobal.com/peering/wsdba")
 @XmlSeeAlso({ObjectFactory.class})
 public interface WSDBASoapService {
 

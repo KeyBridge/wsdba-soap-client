@@ -28,12 +28,12 @@ import javax.xml.ws.handler.Handler;
  * source version: 2.2
  * <p/>
  */
-@WebServiceClient(name = "peering", targetNamespace = "http://whitespace.keybridgeglobal.com/peering/wsdba")
+@WebServiceClient(name = "peering", targetNamespace = "http://www.keybridgeglobal.com/peering/wsdba", wsdlLocation = "http://keybridgeglobal.com/peering/WSDBASoapService?WSDL")
 public class Peering extends Service {
 
   private final static URL PEERING_WSDL_LOCATION;
   private final static WebServiceException PEERING_EXCEPTION;
-  private final static QName PEERING_QNAME = new QName("http://whitespace.keybridgeglobal.com/peering/wsdba", "peering");
+  private final static QName PEERING_QNAME = new QName("http://www.keybridgeglobal.com/peering/wsdba", "peering");
 
   static {
     URL url = null;
@@ -77,7 +77,7 @@ public class Peering extends Service {
    */
   @WebEndpoint(name = "WSpaces_WS_Service")
   public WSDBASoapService getWSpacesWSService() {
-    WSDBASoapService service = super.getPort(new QName("http://whitespace.keybridgeglobal.com/peering/wsdba", "WSpaces_WS_Service"), WSDBASoapService.class);
+    WSDBASoapService service = super.getPort(new QName("http://www.keybridgeglobal.com/peering/wsdba", "WSpaces_WS_Service"), WSDBASoapService.class);
     initializeBinding(service);
     return service;
   }
@@ -92,7 +92,7 @@ public class Peering extends Service {
    */
   @WebEndpoint(name = "WSpaces_WS_Service")
   public WSDBASoapService getWSpacesWSService(WebServiceFeature... features) {
-    WSDBASoapService service = super.getPort(new QName("http://whitespace.keybridgeglobal.com/peering/wsdba", "WSpaces_WS_Service"), WSDBASoapService.class, features);
+    WSDBASoapService service = super.getPort(new QName("http://www.keybridgeglobal.com/peering/wsdba", "WSpaces_WS_Service"), WSDBASoapService.class, features);
     initializeBinding(service);
     return service;
   }
