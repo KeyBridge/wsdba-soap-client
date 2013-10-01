@@ -1,0 +1,7 @@
+INFO: debug <?xml version="1.0" encoding="UTF-8"?>
+<RealTimePollRequest xmlns="http://www.whitespace-db-providers.org/2011//InterDB/ws"
+                     xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <RequestedTransactionID>1379636265042000</RequestedTransactionID>
+  <Command>wsdPoll</Command>
+  <XsdVersion>1.2</XsdVersion>
+</RealTimePollRequest>

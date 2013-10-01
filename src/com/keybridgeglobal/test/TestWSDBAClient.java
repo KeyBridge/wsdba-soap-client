@@ -16,14 +16,11 @@
  */
 package com.keybridgeglobal.test;
 
-import info.wsdba.peering.entity.Version;
-import info.wsdba.peering.soap.RealTimePollRequest;
-import info.wsdba.peering.soap.RealTimePollResponse;
-import info.wsdba.peering.soap.client.keybridge.Peering;
-import info.wsdba.peering.soap.client.keybridge.WSDBASoapService;
+import info.wsdba.peering.soap.client.WSDBAClient_SOAP;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.whitespace_db_providers._2011.interdb.ws.RealTimePollResponse;
 
 /**
  * Test SOAP Client to query the Key Bridge Peering Service supporting the WSBDA
@@ -48,7 +45,7 @@ import java.util.logging.Logger;
  * 'sc:TrustStore' entry near line 53 to point to the keystore.jks file location
  * that you moved on to your local file system.
  * <p/>
- * @author jesse
+ * @author Jesse Caulfield
  */
 public class TestWSDBAClient {
 
@@ -57,65 +54,24 @@ public class TestWSDBAClient {
    * <p/>
    * @param args
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws URISyntaxException {
     /**
      * Print proof of life.
      */
     System.out.println("DEBUG TestWSDBAClient");
     /**
-     * Initialize the Request.
+     * Call the SOAP Client with the designated end point.
+     * <p/>
      */
-    RealTimePollRequest realTimePollRequest = new RealTimePollRequest();
-    /**
-     * Key Bridge requires poll requests to be spaced at least 4 minutes apart.
-     * Set the RequestedTransactionID to four minutes ago.
-     */
-    realTimePollRequest.setRequestedTransactionID(String.valueOf(Calendar.getInstance().getTimeInMillis() - 5 * 60 * 1000));
-    /**
-     * Key Bridge only supports Version 1.2.0
-     */
-    realTimePollRequest.setXsdVersion(Version.V12);
-    /**
-     * The Spec. only supports the command value 'wsdPoll'.
-     */
-    realTimePollRequest.setCommand("wsdPoll");
-    /**
-     * Call the SOAP Service wrapper method below to get a Response.
-     */
-    RealTimePollResponse response = callPeeringService(realTimePollRequest);
+    String endPointKeyBridgeTest = "https://localhost:8181/WSpaces_WS_SVC/WSDBASoapService";
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.HOUR, -1);
+    String transactionKeyBridge = String.valueOf(cal.getTimeInMillis());
+
+    RealTimePollResponse response = WSDBAClient_SOAP.realTimePoll(new URI(endPointKeyBridgeTest), transactionKeyBridge);
     /**
      * Print the response.
      */
-    System.out.println("TestWSDBAClient Response: " + response);
-  }
-
-  /**
-   * Internal method to call the Key Bridge WSDBA Peering Service.
-   * <p/>
-   * This method wraps the actual HTTP SOAP call in a try/catch to assist with
-   * error tracking and program debugging.
-   * <p/>
-   * @param realTimePollRequest the request
-   * @return the response
-   */
-  private static RealTimePollResponse callPeeringService(RealTimePollRequest realTimePollRequest) {
-    /**
-     * Initialize the Peering Service.
-     */
-    Peering service = new Peering();
-    /**
-     * Open the Peering service port.
-     */
-    WSDBASoapService port = service.getWSpacesWSService();
-    /**
-     * Call the Service + Port realTimePoll method.
-     */
-    try {
-      return port.realTimePoll(realTimePollRequest);
-    } catch (Exception e) {
-      System.err.println("ERROR: callPeeringService caught exception: " + e.getMessage());
-      Logger.getLogger(TestWSDBAClient.class.getName()).log(Level.SEVERE, null, e);
-      return null;
-    }
+    System.out.println("\n\nTestWSDBAClient Response: " + response + "\n\n");
   }
 }

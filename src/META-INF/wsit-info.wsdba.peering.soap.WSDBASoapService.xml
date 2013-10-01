@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="WSpaces_WS_SVC" targetNamespace="http%3A%2F%2Fwww.whitespace-db-providers.org%2F2011%2F%2FInterDB%2Fws" xmlns:tns="http%3A%2F%2Fwww.whitespace-db-providers.org%2F2011%2F%2FInterDB%2Fws" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+>
+  <message name="realTimePoll"/>
+  <message name="realTimePollResponse"/>
+  <portType name="WSDBASoapService">
+    <operation name="realTimePoll">
+      <input message="tns:realTimePoll"/>
+      <output message="tns:realTimePollResponse"/>
+    </operation>
+  </portType>
+  <binding name="WSpaces_WS_ServiceBinding" type="tns:WSDBASoapService">
+    <wsp:PolicyReference URI="#WSpaces_WS_ServiceBindingPolicy"/>
+    <operation name="realTimePoll">
+      <input></input>
+      <output></output>
+    </operation>
+  </binding>
+  <service name="WSpaces_WS_SVC">
+    <port name="WSpaces_WS_Service" binding="tns:WSpaces_WS_ServiceBinding"/>
+  </service>
+  <wsp:Policy wsu:Id="WSpaces_WS_ServiceBindingPolicy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsam:Addressing wsp:Optional="false"/>
+        <sp:TransportBinding>
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false"/>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Lax/>
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp/>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:Wss10/>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+</definitions>
