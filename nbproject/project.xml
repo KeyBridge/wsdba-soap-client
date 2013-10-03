@@ -45,7 +45,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>w3c-xmldsig-1_1</foreign-project>
+                <foreign-project>w3c-1_0</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

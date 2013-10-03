@@ -47,7 +47,7 @@ public class WSDBAClient_SOAP {
    *                        Registrar SOAP Address Location.
    * @return a Poll Response message
    */
-  public static RealTimePollResponse realTimePoll(URI endpointAddress, String transactionId) {
+  public static RealTimePollResponse realTimePoll(URI endpointAddress, String transactionId, boolean logSoapMessage) {
     /**
      * Null check.
      */
@@ -78,9 +78,11 @@ public class WSDBAClient_SOAP {
     /**
      * OPTIONAL DEBUG: Add the SOAP client LOGGER to the handler chain.
      */
-    List<Handler> handlerChain = bindingProvider.getBinding().getHandlerChain();
-    handlerChain.add(new SoapClientLogger());
-    bindingProvider.getBinding().setHandlerChain(handlerChain);
+    if (logSoapMessage) {
+      List<Handler> handlerChain = bindingProvider.getBinding().getHandlerChain();
+      handlerChain.add(new SoapClientLogger());
+      bindingProvider.getBinding().setHandlerChain(handlerChain);
+    }
     /**
      * Call the Service + Port realTimePoll method inside a try/catch.
      */

@@ -65,10 +65,12 @@ public class TestWSDBAClient {
      */
     String endPointKeyBridgeTest = "https://localhost:8181/WSpaces_WS_SVC/WSDBASoapService";
     Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.HOUR, -1);
+    cal.add(Calendar.HOUR, -2);
     String transactionKeyBridge = String.valueOf(cal.getTimeInMillis());
 
-    RealTimePollResponse response = WSDBAClient_SOAP.realTimePoll(new URI(endPointKeyBridgeTest), transactionKeyBridge);
+    RealTimePollResponse response = WSDBAClient_SOAP.realTimePoll(new URI(endPointKeyBridgeTest),
+                                                                  transactionKeyBridge,
+                                                                  true);
     /**
      * Print the response.
      */
